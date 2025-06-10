@@ -93,7 +93,7 @@ This implementation:
 
 2. **API Key Security**: Never commit your `.env` file or expose your API keys.
 
-3. **Contract Addresses**: The trusted forwarder address is specific to Sepolia network. For other networks, check [Gelato's supported networks](https://docs.gelato.network/developer-services/relay/quick-start/contract-addresses).
+3. **Contract Addresses**: The trusted forwarder address is specific to Sepolia network. For other networks and their contract addresses, check [Gelato's supported networks](https://docs.gelato.cloud/web3-services/relay/supported-networks).
 
 ## Resources
 
