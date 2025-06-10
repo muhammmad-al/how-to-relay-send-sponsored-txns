@@ -1,0 +1,26 @@
+{
+  "name": "gelato-sponsored-calls",
+  "version": "1.0.0",
+  "description": "Implementation of Gelato Sponsored Calls",
+  "main": "dist/index.js",
+  "scripts": {
+    "build": "tsc",
+    "start": "ts-node src/sponsoredCallSimple.ts",
+    "start:basic": "ts-node src/sponsoredCallBasic.ts",
+    "deploy": "npx hardhat run scripts/deploy.ts --network sepolia",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "dependencies": {
+    "@gelatonetwork/relay-sdk-viem": "1.4.0",
+    "@gelatonetwork/relay-context": "^3.0.0",
+    "dotenv": "^16.0.0",
+    "viem": "^1.0.0"
+  },
+  "devDependencies": {
+    "@nomicfoundation/hardhat-toolbox": "^4.0.0",
+    "@types/node": "^20.0.0",
+    "hardhat": "^2.19.0",
+    "ts-node": "^10.9.0",
+    "typescript": "^5.0.0"
+  }
+} 
