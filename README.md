@@ -1,73 +1,106 @@
-# Gelato Sponsored Calls Implementation
+# Gelato Sponsored Transactions Demo
 
-A simple implementation of Gelato Sponsored Calls using ERC2771.
+This project demonstrates how to implement sponsored transactions using Gelato Relay, allowing you to cover gas fees for your users' transactions. It includes both ERC2771 and non-ERC2771 implementations.
+
+## Features
+
+- ERC2771 sponsored calls with trusted forwarder
+- Basic sponsored calls without ERC2771
+- Counter contract example with both implementations
+- TypeScript implementation using viem
+- Hardhat integration for contract deployment
 
 ## Prerequisites
 
-1. Create a Gelato account on the [Gelato App](https://app.gelato.network/)
-2. Create a relay app on Sepolia testnet
-3. Get your Sponsor API Key from the relay app dashboard
-4. Deposit Sepolia ETH into your 1Balance account
+- Node.js (v16 or higher)
+- npm or yarn
+- A Gelato account with API key
+- Sepolia ETH in your 1Balance account for testnet transactions
 
-## Installation
+## Setup
 
+1. Clone the repository:
 ```bash
-# Install dependencies
+git clone <repository-url>
+cd how-to-relay-send-sponsored-txns
+```
+
+2. Install dependencies:
+```bash
 npm install
-
-# Copy environment file and fill in your values
-cp .env.example .env
 ```
 
-## Configuration
-
-Edit the `.env` file with your values:
-
+3. Create a `.env` file in the root directory with the following variables:
 ```env
-GELATO_RELAY_API_KEY=your_gelato_api_key_here
-PRIVATE_KEY=your_private_key_here
-RPC_URL=https://eth-sepolia.g.alchemy.com/v2/your_api_key_here
+GELATO_RELAY_API_KEY=your_api_key_here
+PRIVATE_KEY=your_wallet_private_key
+RPC_URL=your_sepolia_rpc_url
 ```
+
+## Contract Deployment
+
+Deploy the Counter contract to Sepolia:
+```bash
+npm run deploy
+```
+
+After deployment, update the `COUNTER_ADDRESS` in both `src/sponsoredCallSimple.ts` and `src/sponsoredCallBasic.ts` with your deployed contract address.
 
 ## Usage
 
-```typescript
-import { executeSponsoredCall } from './src/sponsoredCallSimple';
+### ERC2771 Sponsored Calls
 
-// Example contract ABI
-const abi = ["function example()"];
-
-// Your deployed contract address
-const targetContractAddress = "0x1234567890123456789012345678901234567890";
-
-async function main() {
-    try {
-        const response = await executeSponsoredCall(
-            targetContractAddress,
-            abi,
-            "example"
-        );
-        console.log("Task ID:", response.taskId);
-    } catch (error) {
-        console.error("Error:", error);
-    }
-}
-
-main();
-```
-
-Run the example:
-
+Run the ERC2771 implementation:
 ```bash
 npm start
 ```
 
+This implementation:
+- Uses a trusted forwarder for meta-transactions
+- Requires user signature
+- Provides better security and user experience
+
+### Basic Sponsored Calls
+
+Run the basic implementation:
+```bash
+npm run start:basic
+```
+
+This implementation:
+- Simpler setup without trusted forwarder
+- No user signature required
+- Suitable for basic use cases
+
+## Project Structure
+
+```
+├── contracts/
+│   └── Counter.sol          # Example contract with ERC2771 support
+├── scripts/
+│   └── deploy.ts            # Contract deployment script
+├── src/
+│   ├── sponsoredCallSimple.ts    # ERC2771 implementation
+│   └── sponsoredCallBasic.ts     # Basic implementation
+├── .env                    # Environment variables (create this)
+├── hardhat.config.ts       # Hardhat configuration
+└── package.json           # Project dependencies
+```
+
 ## Important Notes
 
-1. Make sure your target contract inherits from ERC2771Context and is initialized with the Sepolia trusted forwarder: `0xd8253782c45a12053594b9deB72d8e8aB2Fca54c`
-2. Keep your private key and API keys secure
-3. Monitor your 1Balance account to ensure sufficient funds for gas sponsorship
+1. **1Balance Funding**: Ensure you have sufficient Sepolia ETH in your 1Balance account for testnet transactions.
 
-## Supported Networks
+2. **API Key Security**: Never commit your `.env` file or expose your API keys.
 
-This example uses Sepolia testnet. For other networks, check the [Gelato Network Support](https://docs.gelato.network/developer-services/relay/quick-start/supported-networks) page for the appropriate trusted forwarder addresses. 
+3. **Contract Addresses**: The trusted forwarder address is specific to Sepolia network. For other networks, check [Gelato's supported networks](https://docs.gelato.network/developer-services/relay/quick-start/contract-addresses).
+
+## Resources
+
+- [Gelato Relay Documentation](https://docs.gelato.network/developer-services/relay)
+- [ERC2771 Standard](https://eips.ethereum.org/EIPS/eip-2771)
+- [1Balance Documentation](https://docs.gelato.network/developer-services/1balance)
+
+## License
+
+MIT 
