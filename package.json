@@ -5,7 +5,7 @@
   "main": "dist/index.js",
   "scripts": {
     "build": "tsc",
-    "start": "ts-node src/sponsoredCallSimple.ts",
+    "start": "ts-node src/sponsoredCallERC2771.ts",
     "start:basic": "ts-node src/sponsoredCallBasic.ts",
     "deploy": "npx hardhat run scripts/deploy.ts --network sepolia",
     "test": "echo \"Error: no test specified\" && exit 1"
@@ -22,5 +22,6 @@
     "hardhat": "^2.19.0",
     "ts-node": "^10.9.0",
     "typescript": "^5.0.0"
-  }
-} 
+  },
+  "packageManager": "yarn@4.9.1+sha512.f95ce356460e05be48d66401c1ae64ef84d163dd689964962c6888a9810865e39097a5e9de748876c2e0bf89b232d583c33982773e9903ae7a76257270986538"
+}
